@@ -44,7 +44,7 @@ Response: 500 Internal Server Error
           "code": "SQLITE_ERROR"
 ```
 
-![[report-1781712307001.webp]]
+![Error-based SQL Injection](report-1781712307001.webp)
 This confirmed SQL injection and identified the backend as SQLite.
 
 Step 2 -> Authentication bypass / full data dump
@@ -60,7 +60,7 @@ WHERE ((name LIKE '%'))--%'...
 ```
 
 Response: `200 OK` -> returned all 46 product records including 10 soft-deleted items hidden from normal users.
-![[report-1781712871390.webp]]
+![Dumping Deleted Products](report-1781712871390.webp)
 
 Step 3 -> Soft-deleted records exposed
 The following records were returned that are not visible through the normal application interface:
