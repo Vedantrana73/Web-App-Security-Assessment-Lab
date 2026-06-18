@@ -1,1 +1,9 @@
-{}
+{
+  "promptDelete": false,
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "./attachments",
+  "trashOption": "local",
+  "showLineNumber": false,
+  "readableLineLength": true,
+  "defaultViewMode": "preview"
+}
