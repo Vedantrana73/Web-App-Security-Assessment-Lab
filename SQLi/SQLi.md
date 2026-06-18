@@ -163,12 +163,12 @@ Due to the column mapping, extracted data was returned in the following JSON fie
 ![](./attachments/SQLi-1781716659604.webp)
 The following accounts were identified from the response:
 
-| Email                  | Password Hash (MD5)                   | Role       |
-| ---------------------- | ------------------------------------- | ---------- |
-| J12934@juice-sh.op     | 3c2abc04e4xxxxxxxxxxxxxxxxxxxxxxxxxx  | admin      |
-| accountant@juice-sh.op | 963exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | accounting |
-| admin@juice-sh.op      | 0192023axxxxxxxxxxxxxxxxxxxxxxxxxxxx  | admin      |
-| amy@juice-sh.op        | 030fxxxxxxxxxxxxxxxxxxxxxxf00de0473   | customer   |
+| Email                      | Password Hash (MD5)                   | Role       |
+| -------------------------- | ------------------------------------- | ---------- |
+| J12934[@]juice-sh[.]op     | 3c2abc04e4xxxxxxxxxxxxxxxxxxxxxxxxxx  | admin      |
+| accountant[@]juice-sh[.]op | 963exxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | accounting |
+| admin[@]juice-sh[.]op      | 0192023axxxxxxxxxxxxxxxxxxxxxxxxxxxx  | admin      |
+| amy[@]juice-sh[.]op        | 030fxxxxxxxxxxxxxxxxxxxxxxf00de0473   | customer   |
 
 Two administrator accounts were identified. All password hashes are MD5 format and are trivially crackable using hashcat or online lookup services such as CrackStation.
 
