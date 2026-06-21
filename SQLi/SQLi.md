@@ -1,5 +1,8 @@
 # Penetration Testing Report
-Assessment Target: OWASP Juice Shop (Training Environment) Vulnerability: SQL Injection — Product Search Endpoint Report Date: June 16, 2026 Severity: Critical
+Assessment Target: OWASP Juice Shop (Training Environment) 
+Vulnerability: SQL Injection - Product Search Endpoint
+Report Date: June 16, 2026
+Severity: Critical
 
 ---
 ## 1. Executive Summary
@@ -42,7 +45,7 @@ Response:
 }
 ```
 
-![](./attachments/report-1781712307001.webp)
+![Query Leak Through Error](./attachments/report-1781712307001.webp)
 
 From this response the following was immediately confirmed:
 - Backend database engine is SQLite
@@ -69,18 +72,18 @@ SELECT * FROM Products WHERE ((name LIKE '%' OR 1=1--...
 Response: 200 OK — returned all 46 product records.
 The following 10 products were returned that are not visible through the normal UI:
 
-|Product ID|Name|
-|---|---|
-|11|Rippertuer Special Juice (flagged unsafe, marked for removal)|
-|10|Christmas Super-Surprise-Box (2014 Edition)|
-|12|OWASP Juice Shop Sticker (2015/2016 design)|
-|27|Juice Shop Artwork|
-|28|Global OWASP WASPY Award 2017 Nomination|
-|39|Adversary Trading Card (Common)|
-|40|Adversary Trading Card (Super Rare)|
-|44|20th Anniversary Celebration Ticket|
-|46|DSOMM & Juice Shop User Day Ticket|
-|31|Sweden Tour 2017 Sticker Sheet|
+| Product ID | Name                                                          |
+| ---------- | ------------------------------------------------------------- |
+| 11         | Rippertuer Special Juice (flagged unsafe, marked for removal) |
+| 10         | Christmas Super-Surprise-Box (2014 Edition)                   |
+| 12         | OWASP Juice Shop Sticker (2015/2016 design)                   |
+| 27         | Juice Shop Artwork                                            |
+| 28         | Global OWASP WASPY Award 2017 Nomination                      |
+| 39         | Adversary Trading Card (Common)                               |
+| 40         | Adversary Trading Card (Super Rare)                           |
+| 44         | 20th Anniversary Celebration Ticket                           |
+| 46         | DSOMM & Juice Shop User Day Ticket                            |
+| 31         | Sweden Tour 2017 Sticker Sheet                                |
 ![Deleted Products](./attachments/report-1781712871390.webp)
 
 ---
@@ -115,28 +118,28 @@ Host: localhost:3000
 
 Tables discovered:
 
-|Table|Sensitivity|
-|---|---|
-|Users|Critical — credentials and roles|
-|SecurityAnswers|Critical — account recovery data|
-|SecurityQuestions|High — recovery question mapping|
-|Cards|High — payment card data|
-|Wallets|High — financial balances|
-|Addresses|Medium — user PII|
-|Complaints|Medium — user messages|
-|Memories|Medium — user uploaded content|
-|PrivacyRequests|Medium — GDPR/privacy requests|
-|BasketItems|Low|
-|Baskets|Low|
-|Captchas|Low|
-|ImageCaptchas|Low|
-|Challenges|Low — internal tracker|
-|Deliveries|Low|
-|Feedbacks|Low|
-|Hints|Low|
-|Products|Known|
-|Quantities|Low|
-|Recycles|Low|
+| Table             | Sensitivity                      |
+| ----------------- | -------------------------------- |
+| Users             | Critical — credentials and roles |
+| SecurityAnswers   | Critical — account recovery data |
+| SecurityQuestions | High — recovery question mapping |
+| Cards             | High — payment card data         |
+| Wallets           | High — financial balances        |
+| Addresses         | Medium — user PII                |
+| Complaints        | Medium — user messages           |
+| Memories          | Medium — user uploaded content   |
+| PrivacyRequests   | Medium — GDPR/privacy requests   |
+| BasketItems       | Low                              |
+| Baskets           | Low                              |
+| Captchas          | Low                              |
+| ImageCaptchas     | Low                              |
+| Challenges        | Low — internal tracker           |
+| Deliveries        | Low                              |
+| Feedbacks         | Low                              |
+| Hints             | Low                              |
+| Products          | Known                            |
+| Quantities        | Low                              |
+| Recycles          | Low                              |
 ![Table Enumeration](./attachments/SQLi-1781716070506.webp)
 
 ---
@@ -160,7 +163,7 @@ Due to the column mapping, extracted data was returned in the following JSON fie
 - name field → password hash
 - description field → user role
 
-![](./attachments/SQLi-1781716659604.webp)
+![User Credentials Leaked](./attachments/SQLi-1781716659604.webp)
 The following accounts were identified from the response:
 
 | Email                      | Password Hash (MD5)                   | Role       |
@@ -208,15 +211,15 @@ Step 7: MD5 hashes crackable offline
 ---
 ## 5. Impact Analysis
 
-|Area|Severity|Detail|
-|---|---|---|
-|Confidentiality|Critical|Entire database accessible to unauthenticated attacker|
-|Authentication|Critical|Admin credentials extracted — full application takeover possible|
-|Financial|High|Cards and Wallets tables exposed — payment data at risk|
-|Integrity|High|Write-capable queries may allow INSERT/UPDATE/DELETE operations|
-|Availability|Medium|Destructive queries such as DROP TABLE possible depending on DB user privileges|
-|PII Exposure|High|Addresses, complaints, privacy requests, and memories tables accessible|
-|Compliance|Critical|Breach of IT Act 2000 (India) and applicable data protection obligations|
+| Area            | Severity | Detail                                                                          |
+| --------------- | -------- | ------------------------------------------------------------------------------- |
+| Confidentiality | Critical | Entire database accessible to unauthenticated attacker                          |
+| Authentication  | Critical | Admin credentials extracted — full application takeover possible                |
+| Financial       | High     | Cards and Wallets tables exposed — payment data at risk                         |
+| Integrity       | High     | Write-capable queries may allow INSERT/UPDATE/DELETE operations                 |
+| Availability    | Medium   | Destructive queries such as DROP TABLE possible depending on DB user privileges |
+| PII Exposure    | High     | Addresses, complaints, privacy requests, and memories tables accessible         |
+| Compliance      | Critical | Breach of IT Act 2000 (India) and applicable data protection obligations        |
 
 ---
 ## 6. Root Cause
