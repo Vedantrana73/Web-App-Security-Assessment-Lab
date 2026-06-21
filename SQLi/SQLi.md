@@ -141,6 +141,7 @@ Tables discovered:
 | Products          | Known                            |
 | Quantities        | Low                              |
 | Recycles          | Low                              |
+
 ![Table Enumeration](./attachments/SQLi-1781716070506.webp)
 
 ---
