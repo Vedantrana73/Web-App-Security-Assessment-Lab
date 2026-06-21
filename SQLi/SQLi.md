@@ -84,6 +84,7 @@ The following 10 products were returned that are not visible through the normal 
 | 44         | 20th Anniversary Celebration Ticket                           |
 | 46         | DSOMM & Juice Shop User Day Ticket                            |
 | 31         | Sweden Tour 2017 Sticker Sheet                                |
+
 ![Deleted Products](./attachments/report-1781712871390.webp)
 
 ---
